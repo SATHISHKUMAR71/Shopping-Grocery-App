@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="80dp"
+    android:background="@color/white"
+
+    tools:context=".views.userviews.cartview.cart.CartFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/carttoolbar"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <LinearLayout
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="My Cart"
+                    android:id="@+id/linearLayout10"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:titleTextColor="@color/white"
+                    android:background="?attr/colorPrimaryDark"/>
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+
+
+
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintTop_toBottomOf="@+id/addMoreGroceryButton" />
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/emptyCartNotes"
+        android:layout_margin="20dp"
+        android:elevation="4dp"
+        app:cardCornerRadius="12dp"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:paddingTop="30dp"
+
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_height="wrap_content"
+            android:text="Your Cart is Empty (^-^)"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/browseProducts"
+            android:text="Browse Products"
+            app:icon="@drawable/add_24px"
+            app:cornerRadius="4dp"
+            android:elevation="4dp"/>
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        app:cardElevation="12dp"
+        android:id="@+id/linearLayout11"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="10dp"
+        android:layout_height="?attr/actionBarSize">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       android:orientation="vertical"
+       android:background="@color/white"
+       app:layout_constraintBottom_toBottomOf="parent"
+       tools:layout_editor_absoluteX="10dp">
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/guideLineColorDim" />
+       <LinearLayout
+           android:layout_marginStart="10dp"
+           android:layout_marginEnd="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal">
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:orientation="vertical">
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/viewPriceDetailsButton"
+                   style="@style/Widget.Material3.Button.TextButton"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="₹ 1,350\nView Price Details"
+                   android:textAlignment="textStart"
+                   android:textSize="18sp"
+                   app:cornerRadius="0dp" />
+           </LinearLayout>
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/continueButton"
+               android:layout_width="wrap_content"
+               android:layout_weight="0.2"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:text="Continue"
+               android:textSize="18sp"
+               app:cornerRadius="4dp" />
+       </LinearLayout>
+   </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
