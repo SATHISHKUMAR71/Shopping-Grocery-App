@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.core.domain.products.Product
 import com.example.shoppinggroceryapp.MainActivity.Companion.cacheLock
@@ -60,9 +61,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        lifecycleScope.launch(Dispatchers.IO){
-            getAppDatabase(baseContext).getUserDao().initDB()
-        }
+        val userDao = getAppDatabase(baseContext).getUserDao()
+        val activityViewModel = ViewModelProvider(this,MainActivityViewModelFactory(userDao))[MainActivityViewModel::class.java]
+        activityViewModel.initDb()
         val pref = getSharedPreferences("freshCart", Context.MODE_PRIVATE)
         SetInitialDataForUser().invoke(pref)
         val isSigned = pref.getBoolean("isSigned",false)
@@ -81,25 +82,14 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.POST_NOTIFICATIONS),
                 100)
         }
-        val db2 = getAppDatabase(baseContext).getUserDao()
+
         if(isSigned) {
-            assignCart(db2)
+            activityViewModel.assignCart()
         }
     }
 
 
-    private fun assignCart(db2: UserDao){
-        lifecycleScope.launch(Dispatchers.IO) {
-            val cart: CartMappingEntity? = db2.getCartForUser(userId.toInt())
-            if (cart == null) {
-                db2.addCartForUser(CartMappingEntity(0, userId = userId.toInt(), "available"))
-                val newCart = db2.getCartForUser(userId.toInt())
-                cartId = newCart?.cartId?:-1
-            } else {
-                cartId = cart.cartId
-            }
-        }
-    }
+
 
     override fun onLowMemory() {
         super.onLowMemory()
